@@ -7,19 +7,12 @@
     "logo": "/assets/integrations/cipp-api.png",
     "forceSyncButton": false,
     "hideTestButton": true,
-    "disableWhenhosted": true,
-    "description": "Enable the CIPP API to access CIPP data outside of CIPP using a RESTful API.",
-    "helpText": "This integration allows you to enable CIPP-API access outside of CIPP. Requires Global Administrator permissions inside your tenant for activation of the API. The API credentials will only be shown once.",
-    "SettingOptions": [
+    "description": "The CIPP API allows you to access CIPP data outside of CIPP using a RESTful API.",
+    "helpText": "This integration allows you to enable CIPP-API access outside of CIPP. This is useful for integrations with other systems or custom scripts.",
+    "links": [
       {
-        "type": "switch",
-        "name": "cippapi.ResetPassword",
-        "label": "Reset application secret - this will invalidate all existing API tokens"
-      },
-      {
-        "type": "switch",
-        "name": "cippapi.Enabled",
-        "label": "Enable Integration"
+        "name": "CIPP API Documentation",
+        "url": "https://docs.cipp.app/api-documentation/setup-and-authentication"
       }
     ],
     "mappingRequired": false
@@ -76,7 +69,7 @@
         "name": "Sherweb.AllowedCustomRoles",
         "label": "Select custom roles that are allowed to purchase licenses",
         "api": {
-          "url": "/api/ExecCustomRole",
+          "url": "/api/ListCustomRole",
           "queryKey": "CustomRoles",
           "labelField": "RowKey",
           "valueField": "RowKey"
@@ -334,7 +327,7 @@
     "logoDark": "/assets/integrations/pwpush_dark.png",
     "forceSyncButton": false,
     "description": "Enable the PasswordPusher integration to generate password links instead of plain text passwords.",
-    "helpText": "This integration allows you to generate password links instead of plain text passwords. Configure authentication and expiration settings that will apply to all generated passwords.",
+    "helpText": "This integration allows you to generate password links instead of plain text passwords. Configure authentication and expiration settings that will apply to all generated passwords. If you are a PWPush Pro customer and utilizing custom domains, please do not enter your custom domain in the Base URL field.",
     "links": [
       {
         "name": "PWPush Documentation",
@@ -420,6 +413,77 @@
         "type": "switch",
         "name": "HIBP.Enabled",
         "label": "Enable Integration - Allow darkweb scanning through tools and alerts"
+      }
+    ],
+    "mappingRequired": false
+  },
+  {
+    "name": "CloudFlare ZTNA Tunnel",
+    "id": "CTZTNA",
+    "type": "ztna",
+    "cat": "Zero Trust Network Tunnel",
+    "logo": "/assets/integrations/cloudflare.png",
+    "forceSyncButton": false,
+    "hideTestButton": true,
+    "description": "Enter your CloudFlare ZTNA Tunnel API Credentials to use with other Integrations",
+    "helpText": "These credentials can be used to allow traffic through a CloudFlare ZTNA Tunnel if your other Integrations are protected behind one. You need to select 'Behind a CF-ZTNA Tunnel' within the other Integration's settings to enable.",
+    "links": [
+      {
+        "name": "CloudFlare ZTNA Tunnel Information",
+        "url": "https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/"
+      },
+      {
+        "name": "Installing Hudu behind Cloudflare Zero Trust Tunnel",
+        "url": "https://support.hudu.com/hc/en-us/articles/13929358997399-Installing-Hudu-behind-Cloudflare-Zero-Trust-Tunnel"
+      }
+    ],
+    "SettingOptions": [
+      {
+        "type": "password",
+        "name": "CloudFlareClientID.APIKey",
+        "label": "CloudFlare Tunnel Service Account Client ID"
+      },
+      {
+        "type": "password",
+        "name": "CloudFlareAPIKey.APIKey",
+        "label": "CloudFlare Tunnel Service Account Client Secret"
+      },
+      {
+        "_comment": "I have added this switch as a logic check for the Hudu integration script to check against when CIPP first connects to the Hudu Instance via Connect-HuduAPI.ps1",
+        "type": "switch",
+        "name": "Hudu.CFEnabled",
+        "label": " Connect to HUDU through CloudFlare Tunnel with the above Service Account credentials."
+      }
+    ],
+    "mappingRequired": false
+  },
+  {
+    "name": "GitHub",
+    "id": "GitHub",
+    "type": "DevOps",
+    "cat": "Source Control",
+    "logo": "/assets/integrations/github.png",
+    "logoDark": "/assets/integrations/github_dark.png",
+    "description": "Enable the GitHub integration to manage your repositories from CIPP.",
+    "helpText": "This integration allows you to manage your GitHub repositories from CIPP. Requires a GitHub Fine Grained Personal Access Token (PAT).",
+    "links": [
+      {
+        "name": "GitHub Token",
+        "url": "https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token"
+      }
+    ],
+    "SettingOptions": [
+      {
+        "type": "password",
+        "name": "GitHub.APIKey",
+        "label": "GitHub Fine Grained Personal Access Token",
+        "placeholder": "Enter your GitHub PAT",
+        "required": true
+      },
+      {
+        "type": "switch",
+        "name": "GitHub.Enabled",
+        "label": "Enable Integration"
       }
     ],
     "mappingRequired": false
